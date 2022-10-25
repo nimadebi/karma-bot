@@ -1,0 +1,30 @@
+[
+    {
+    "transaction":"<TBD>",
+    "type":1,
+    "details":
+        {
+        "memo": "Karma Hustle bounty for gnudrew for completing the first batch of missions in the analytics project, specifically making permission tree data accessible.",
+        "missions":
+            [
+                {
+                "name": "Validator Permission Tree Scraper",
+                "recordURL":"https://airtable.com/appuiDshjiBzOAGl2/tblixhNzkEaKt3a75/viwlz7S2kmgCkoHFS/rec4D7I4k2KS4ytt5",
+                "author":"27de1f87599fd1f8ae5bd1101511d546",
+                "worker":"<gnudrew's account here>",
+                "reviewer":"562945a0318e392740f25e9630f10ea9",
+                "artifacts":["<github link to code>"],
+                "arbitration/dispute": "flag"
+                },
+                {
+                "name": "API for permission tree db",
+                "recordURL": "https://airtable.com/appuiDshjiBzOAGl2/tblixhNzkEaKt3a75/viwlz7S2kmgCkoHFS/recXtnhbiUpaBMKQx",
+                "author": "27de1f87599fd1f8ae5bd1101511d546",
+                "worker": "<gnudrew's account here>",
+                "reviewer": "562945a0318e392740f25e9630f10ea9",
+                "artifacts":["<github link to code>"]
+                }
+            ]
+        }
+    }
+]
