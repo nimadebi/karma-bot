@@ -43,5 +43,13 @@
       "discordId": "<member 'id' of 'BaseUser' objects>",
       "discordName": "Nima#1765"
     }
+  },
+  {
+    "account": "None",
+    "type": 0,
+    "details": {
+      "discordId": "<member 'id' of 'BaseUser' objects>",
+      "discordName": "Nima#1765"
+    }
   }
 ]
