@@ -21,6 +21,9 @@ git_integration = GithubIntegration(
 
 
 def get_token():
+    """
+    Get a token for the github integration.
+    """
     return Github(
         login_or_token=git_integration.get_access_token(
             git_integration.get_installation("nimadebi", "karma-bot").id
@@ -29,6 +32,9 @@ def get_token():
 
 
 def get_issues():
+    """
+    Get all issues from the github repo.
+    """
     git_connection = get_token()
 
     repo = git_connection.get_repo("nimadebi/karma-bot")
@@ -38,11 +44,14 @@ def get_issues():
 
 
 def get_identities():
+    """
+    Get the identities from the github repo.
+    """
     git_connection = get_token()
 
     repo = git_connection.get_repo("nimadebi/karma-bot")
     readme = repo.get_contents("data/contributors_test.json")  # change this location after testing phase
-    return readme.decoded_content.decode()
+    return json.loads(readme.decoded_content.decode())
 
 
 def is_in_identities(discord_id):
@@ -51,7 +60,7 @@ def is_in_identities(discord_id):
     :param discord_id: discord id of user. Using this over name because of name changes.
     :return: True if in list, False if not.
     """
-    identities = json.loads(get_identities())
+    identities = get_identities()
     for i in identities:
         if i["details"]["discordId"] == discord_id:
             return True
@@ -59,10 +68,15 @@ def is_in_identities(discord_id):
 
 
 def push_identities(identities):
+    """
+    Pushes the identities to github.
+    :param identities: updated json file.
+    """
     git_connection = get_token()
     repo = git_connection.get_repo("nimadebi/karma-bot")
     readme = repo.get_contents("data/contributors_test.json")  # change this location after testing phase
     repo.update_file(readme.path, "updated identity", json.dumps(identities, indent=2), readme.sha)
+
 
 def add_identity(account, type, discord_id, discord_name, github_id, twitter_id):
     """
@@ -76,7 +90,7 @@ def add_identity(account, type, discord_id, discord_name, github_id, twitter_id)
     :param github_id: github username
     :param twitter_id: twitter username
     """
-    identities = json.loads(get_identities())
+    identities = get_identities()
 
     details = {}
     if discord_id is not None:
