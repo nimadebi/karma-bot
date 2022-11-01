@@ -3,6 +3,11 @@ import os
 import github_handler
 from dotenv import load_dotenv
 from discord import ui, app_commands
+'''
+CHECK IF WALLET IS SLOW TYPE!
+CHECK IF DATA IS CORRECT! (wallet length etc)
+
+'''
 
 
 class Client(discord.Client):
@@ -78,7 +83,7 @@ class IdentityForm(discord.ui.Modal):
 # TODO: add limit to prevent spamming.
 async def modal(interaction: discord.Interaction):
     if not github_handler.is_in_identities(interaction.user.id):
-        await interaction.response.send_message("You are not in the list of contributors.")
+        await interaction.response.send_message("You are not in the list of contributors.", ephemeral=True)
         return
     await interaction.response.send_modal(IdentityForm(interaction))
 
@@ -87,10 +92,15 @@ async def modal(interaction: discord.Interaction):
 async def whitelist(interaction: discord.Interaction, account: discord.User):
     """This command is only available to certain people.
     TODO: add support for type 1 accounts (groups)
-    TODO: add support for only certain people being able to whitelist accounts."""
+    TODO: add support for only certain people being able to whitelist accounts.
+    TODO: check if account is already in the list."""
+    if "Working Groups Key Role" not in [y.name for y in interaction.user.roles]:
+        await interaction.response.send_message("You are not allowed to whitelist accounts.", ephemeral=True)
+        return
     # await interaction.response.send_message("You can't to use this command.")
+    await interaction.response.defer()
     github_handler.add_identity("None", 0, account.id, str(account), None, None)
-    await interaction.response.send_message(f"We have added {str(account)} to the whitelist.")
+    await interaction.followup.send(f"We have added {str(account)} to the whitelist.", ephemeral=True)
 
 
 discord_client.run(os.getenv("discord-key"))
