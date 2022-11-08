@@ -53,12 +53,13 @@
     }
   },
   {
-    "account": "0000000000",
+    "account": "0000000001",
     "type": 0,
     "details": {
       "discordId": 196701369313394692,
       "discordName": "Nima#1765",
-      "githubId": "nimadebi"
+      "githubId": "nimadebi",
+      "twitterId": "twitterid"
     }
   },
   {
