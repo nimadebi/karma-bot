@@ -1,7 +1,7 @@
 import discord
 from discord import ui, app_commands
 from discord.ext import commands
-import github_util
+from util import github_util
 
 
 class Identities(commands.Cog):
