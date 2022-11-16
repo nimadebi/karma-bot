@@ -7,8 +7,10 @@ PYTHONPATH=$(dirname $this_file)
 # create necessary directory for ol tool to function
 [ ! -d "~/.0L" ] && mkdir ~/.0L
 
-# copy the ol tool config file
-cp $PYTHONPATH/assets/0L.toml ~/.0L
+# copy the ol tool config file, if it exists, only
+# overwrite destination file when the source file 
+# is newer.
+cp -u $PYTHONPATH/assets/0L.toml ~/.0L
 
 # make the ol tool executable
 chmod +x $PYTHONPATH/bin/ol
