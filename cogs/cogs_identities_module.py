@@ -1,7 +1,7 @@
 import discord
 from discord import ui, app_commands
 from discord.ext import commands
-import github_util
+from util import github_util
 
 
 class Identities(commands.Cog):
@@ -19,12 +19,13 @@ class Identities(commands.Cog):
 
     @app_commands.command(name="whitelist", description="whitelist an account")
     async def whitelist(self, interaction: discord.Interaction, account: discord.User):
-        """This command is only available to certain people.
-        TODO: add support for type 1 accounts (groups)
-        TODO: add support for only certain people being able to whitelist accounts.
-        TODO: check if account is already in the list."""
+        """This command is only available to Working Groups Key Roles."""
+        # TODO: add support for type 1 accounts (groups)
         if "Working Groups Key Role" not in [y.name for y in interaction.user.roles]:
             await interaction.response.send_message("You are not allowed to whitelist accounts.", ephemeral=True)
+            return
+        if github_util.is_in_identities(interaction.user.id):
+            await interaction.response.send_message("This account is already whitelisted.", ephemeral=True)
             return
         await interaction.response.defer()
         github_util.add_identity("None", 0, account.id, str(account), None, None)
@@ -68,6 +69,8 @@ class IdentityForm(ui.Modal):
     async def on_submit(self, interaction: discord.Interaction):
         """This function is called when the user submits the form.
         TODO: add check slow wallet function."""
+        # calling this function again in case identities have changed.
+        self.identities = github_util.get_identities()
         self.identities[self.identity_index]["account"] = self.account_input.value
         self.identities[self.identity_index]["details"]["discordId"] = self.discord_id
         self.identities[self.identity_index]["details"]["discordName"] = self.discord_name
