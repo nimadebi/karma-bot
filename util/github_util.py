@@ -63,16 +63,21 @@ def get_identities():
     return json.loads(readme.decoded_content.decode())
 
 
-def is_in_identities(discord_id):
+def is_in_identities(discord_id=None, discord_name=None):
     """
     Checks if the discord id is in the list of contributors. These are added by the whitelist command.
+    :param discord_name:
     :param discord_id: discord id of user. Using this over name because of name changes.
     :return: True if in list, False if not.
     """
     identities = get_identities()
     for i in identities:
-        if i["details"]["discordId"] == discord_id:
-            return True
+        if discord_id is not None:
+            if i["details"]["discordId"] == discord_id:
+                return True
+        if discord_name is not None:
+            if i["details"]["discordName"] == discord_name:
+                return True
     return False
 
 
@@ -122,17 +127,22 @@ def add_identity(account, type, discord_id, discord_name, github_id, twitter_id)
     push_identities(identities)
 
 
-def get_identity(discord_name):
+def get_identity(discord_id=None, discord_name=None):
     """
     Get the identity of a user from the json file.
+    :param discord_id:
     :param discord_name:
     :return: identity of user
     """
-    if is_in_identities(discord_name):
+    if is_in_identities(discord_id=discord_id, discord_name=discord_name):
         identities = get_identities()
         for i in identities:
-            if i["details"]["discordName"] == discord_name:
-                return i
+            if discord_id is not None:
+                if i["details"]["discordId"] == discord_id:
+                    return i
+            if discord_name is not None:
+                if i["details"]["discordName"] == discord_name:
+                    return i
     return None
 
 

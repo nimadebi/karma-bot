@@ -8,11 +8,19 @@ class Identities(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+    @commands.command()
+    async def sync(self, ctx) -> None:
+        fmt = await ctx.bot.tree.sync(guild=ctx.guild)
+        await ctx.send(
+            f"Synced {len(fmt)} commands to the current guild.\n"
+        )
+        return
+
     @app_commands.command(name="account", description="add or update your account")
     # TODO: add lock to prevent multiple submissions at the same time.
     # TODO: add limit to prevent spamming.
     async def modal(self, interaction: discord.Interaction):
-        if not github_util.is_in_identities(interaction.user.id):
+        if not github_util.is_in_identities(discord_id=interaction.user.id):
             await interaction.response.send_message("You are not in the list of contributors.", ephemeral=True)
             return
         await interaction.response.send_modal(IdentityForm(interaction))
@@ -24,7 +32,7 @@ class Identities(commands.Cog):
         if "Working Groups Key Role" not in [y.name for y in interaction.user.roles]:
             await interaction.response.send_message("You are not allowed to whitelist accounts.", ephemeral=True)
             return
-        if github_util.is_in_identities(interaction.user.id):
+        if github_util.is_in_identities(discord_id=interaction.user.id):
             await interaction.response.send_message("This account is already whitelisted.", ephemeral=True)
             return
         await interaction.response.defer()
@@ -87,5 +95,5 @@ class IdentityForm(ui.Modal):
 
 
 async def setup(client):
-    print("Identities module loaded.")
+    print("Identities module loaded")
     await client.add_cog(Identities(client), guild=discord.Object(696335510037332020))
