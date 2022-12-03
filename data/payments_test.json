@@ -46,5 +46,14 @@
     "amount": "5000",
     "memo": "paid nima for karma-bot closed issues task",
     "tx_hash": "<some tx>"
+  },
+  {
+    "address": "00000000000000000000000000000001",
+    "discord_name": "Nima#1765",
+    "issue_link": "",
+    "task_description": null,
+    "amount": "2500",
+    "memo": "",
+    "tx_hash": "tx hash"
   }
 ]
