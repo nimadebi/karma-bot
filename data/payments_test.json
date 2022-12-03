@@ -25,5 +25,14 @@
     "amount": "2500",
     "memo": "",
     "tx_hash": "tx hash"
+  },
+  {
+    "address": "00000000000000000000000000000001",
+    "discord_name": "Nima#1765",
+    "issue_link": "https://github.com/nimadebi/karma-bot/issues/4",
+    "task_description": "build the closed issue getter",
+    "amount": "5000",
+    "memo": "this is for the second test",
+    "tx_hash": "tx hash here"
   }
 ]
