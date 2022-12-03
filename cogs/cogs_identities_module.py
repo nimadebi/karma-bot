@@ -47,6 +47,8 @@ class IdentityForm(ui.Modal):
             if i["details"]["discordId"] == interaction.user.id:
                 self.identity_index = index
                 self.account = i["account"]
+                if self.account == "None":
+                    self.account = "00000000000000000000000000000000"
                 if "githubId" in i["details"]:
                     self.github_id = i["details"]["githubId"]
                 if "twitterId" in i["details"]:
@@ -85,4 +87,5 @@ class IdentityForm(ui.Modal):
 
 
 async def setup(client):
+    print("Identities module loaded.")
     await client.add_cog(Identities(client), guild=discord.Object(696335510037332020))

@@ -43,6 +43,15 @@ def get_issues():
     return repo.get_issues()
 
 
+def get_closed_issues():
+    git_connection = get_token()
+
+    repo = git_connection.get_repo("nimadebi/karma-bot")
+    for i in repo.get_issues(state="closed"):
+        print(i.body)
+    return repo.get_issues(state="closed")
+
+
 def get_identities():
     """
     Get the identities from the github repo.
@@ -111,4 +120,40 @@ def add_identity(account, type, discord_id, discord_name, github_id, twitter_id)
 
     identities.append(new_identity)
     push_identities(identities)
+
+
+def get_identity(discord_name):
+    """
+    Get the identity of a user from the json file.
+    :param discord_name:
+    :return: identity of user
+    """
+    if is_in_identities(discord_name):
+        identities = get_identities()
+        for i in identities:
+            if i["details"]["discordName"] == discord_name:
+                return i
+    return None
+
+
+def get_payments():
+    """
+    Get all payments from the github repo.
+    """
+    git_connection = get_token()
+
+    repo = git_connection.get_repo("nimadebi/karma-bot")
+    readme = repo.get_contents("data/payments_test.json")  # change this location after testing phase
+    return json.loads(readme.decoded_content.decode())
+
+
+def push_payments(payments):
+    """
+    Pushes the payments to github.
+    :param payments: updated json file.
+    """
+    git_connection = get_token()
+    repo = git_connection.get_repo("nimadebi/karma-bot")
+    readme = repo.get_contents("data/payments_test.json")  # change this location after testing phase
+    repo.update_file(readme.path, "updated payments", json.dumps(payments, indent=2), readme.sha)
 
