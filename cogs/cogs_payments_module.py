@@ -2,8 +2,6 @@ import discord
 from discord import ui, app_commands
 from discord.ext import commands
 from util import github_util
-import re
-
 
 
 class Payments(commands.Cog):
@@ -66,7 +64,6 @@ class PaymentButton(ui.Button):
 class PaymentForm(ui.Modal):
     def __init__(self, interaction: discord.Interaction, discord_user=None, discord_name=None, bounty=None, issue_link=None,
                  task_description=None):
-        super().__init__(title=f"0L Payment Form: {str(discord_user)}")
         self.bounty = bounty
         self.issue_link = issue_link
         self.task_description = task_description
@@ -80,6 +77,7 @@ class PaymentForm(ui.Modal):
             self.address = ""
         else:
             self.address = self.identity["account"]
+        super().__init__(title=f"0L Payment Form: {str(self.discord_name)}")
 
         # We can only have 5 items in a modal.
         # self.discord_name_field = discord.ui.TextInput(label="Discord Name", default=self.discord_name,
@@ -136,11 +134,11 @@ async def send_embed(channel, message, title):
         colour=discord.Colour.gold()
     )
 
-    #embed.set_thumbnail(url="https://i.ibb.co/Gv100Bj/warzone-logo.jpg")
     button = PaymentButton()
     view = discord.ui.View()
     view.add_item(button)
     await channel.send(embed=embed, view=view)
+
 
 async def setup(client):
     print("Payments module loaded")
