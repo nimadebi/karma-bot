@@ -10,7 +10,7 @@ class Identities(commands.Cog):
 
     @commands.command()
     async def sync(self, ctx) -> None:
-        fmt = await ctx.bot.tree.sync(guild=ctx.guild)
+        fmt = await ctx.bot.tree.sync()
         await ctx.send(
             f"Synced {len(fmt)} commands to the current guild.\n"
         )
@@ -96,4 +96,4 @@ class IdentityForm(ui.Modal):
 
 async def setup(client):
     print("Identities module loaded")
-    await client.add_cog(Identities(client), guild=discord.Object(696335510037332020))
+    await client.add_cog(Identities(client))

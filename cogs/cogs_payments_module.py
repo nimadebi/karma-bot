@@ -142,4 +142,4 @@ async def send_embed(channel, message, title):
 
 async def setup(client):
     print("Payments module loaded")
-    await client.add_cog(Payments(client), guild=discord.Object(696335510037332020))
+    await client.add_cog(Payments(client))
