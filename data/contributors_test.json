@@ -27,5 +27,13 @@
       "githubId": "nimadebi",
       "twitterId": "tweeta"
     }
+  },
+  {
+    "account": "None",
+    "type": 0,
+    "details": {
+      "discordId": 196701369313394692,
+      "discordName": "Nima#1765"
+    }
   }
 ]
