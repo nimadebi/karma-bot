@@ -5,7 +5,7 @@ this_file=$(realpath $0)
 PYTHONPATH=$(dirname $this_file)
 
 # create necessary directory for ol tool to function
-[ ! -d "~/.0L" ] && mkdir ~/.0L
+[ ! -d "~/.0L" ] && mkdir -p ~/.0L
 
 # copy the ol tool config file, if it exists, only
 # overwrite destination file when the source file 
