@@ -53,11 +53,13 @@
     }
   },
   {
-    "account": "2BFD96D8A674A360B733D16C65728D72",
+    "account": "5F8AC83A9B3BF2EFF20A6C16CD05C111",
     "type": 0,
     "details": {
       "discordId": 776520842070720514,
-      "discordName": "Paulito#0564"
+      "discordName": "Paulito#0564",
+      "githubId": "https://github.com/Paulito123",
+      "twitterId": "123"
     }
   }
 ]
